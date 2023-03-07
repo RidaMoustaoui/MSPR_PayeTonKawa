@@ -26,11 +26,11 @@ class _LoginContentState extends State<LoginContent>
     with TickerProviderStateMixin {
   late final List<Widget> createAccountContent;
   late final List<Widget> loginContent;
-  final myController1 = TextEditingController();
-  final myController2 = TextEditingController();
-  final myController3 = TextEditingController();
-  final myController4 = TextEditingController();
-  final myController5 = TextEditingController();
+  final signupName = TextEditingController();
+  final signupMail = TextEditingController();
+  final signupPassword = TextEditingController();
+  final loginMail = TextEditingController();
+  final loginPassword = TextEditingController();
 
   Widget inputField1(String hint, IconData iconData) {
     return Padding(
@@ -43,7 +43,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
-            controller: myController1,
+            controller: signupName,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -72,7 +72,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
-            controller: myController2,
+            controller: signupMail,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -101,7 +101,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
-            controller: myController3,
+            controller: signupPassword,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -130,7 +130,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
-            controller: myController4,
+            controller: loginMail,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -159,7 +159,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
-            controller: myController5,
+            controller: loginPassword,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -181,20 +181,20 @@ class _LoginContentState extends State<LoginContent>
   {
     if(page=="Créer")
     {
-      if(myController1.text != "" && myController2.text != "" && myController3.text != "")
+      if(signupName.text != "" && signupMail.text != "" && signupPassword.text != "")
       {
-        debugPrint(myController1.text);
-        debugPrint(myController2.text);
-        debugPrint(myController3.text);
+        debugPrint(signupName.text);
+        debugPrint(signupMail.text);
+        debugPrint(signupPassword.text);
       }
 
     }
     if(page=="Connexion")
     {
-      if(myController4.text != "" && myController5.text != "")
+      if(loginMail.text != "" && loginPassword.text != "")
       {
-        debugPrint(myController4.text);
-        debugPrint(myController5.text);
+        debugPrint(loginMail.text);
+        debugPrint(loginPassword.text);
       }
     }
   }
@@ -266,11 +266,11 @@ class _LoginContentState extends State<LoginContent>
   @override
   void dispose() {
     ChangeScreenAnimation.dispose();
-    myController1.dispose();
-    myController2.dispose();
-    myController3.dispose();
-    myController4.dispose();
-    myController5.dispose();
+    signupName.dispose();
+    signupMail.dispose();
+    signupPassword.dispose();
+    loginMail.dispose();
+    loginPassword.dispose();
     super.dispose();
   }
 
