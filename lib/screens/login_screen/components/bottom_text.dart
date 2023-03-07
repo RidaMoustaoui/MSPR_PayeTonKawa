@@ -5,7 +5,6 @@ import 'package:encrypt/encrypt.dart';
 import '../../../utils/constants.dart';
 import 'login_content.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:login_screen/main.dart';
 
 class BottomText extends StatefulWidget {
