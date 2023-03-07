@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   ionicons: ^0.1.2
-  sqflite:
+  sqflite: ^2.2.5
   path:
   
   # The following adds the Cupertino Icons font to your application.
