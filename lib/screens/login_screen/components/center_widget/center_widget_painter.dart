@@ -1,6 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:encrypt/encrypt.dart';
+import 'package:login_screen/main.dart';
 
 class CenterWidgetPainter extends CustomPainter {
   final Path path;

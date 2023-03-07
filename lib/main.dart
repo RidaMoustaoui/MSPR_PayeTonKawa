@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'screens/login_screen/login_screen.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:encrypt/encrypt.dart';
+import 'package:login_screen/main.dart';
 import 'utils/constants.dart';
+
 
 void main() {
   runApp(const MyApp());
