@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:login_screen/utils/helper_functions.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:encrypt/encrypt.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:login_screen/main.dart';
 import '../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
