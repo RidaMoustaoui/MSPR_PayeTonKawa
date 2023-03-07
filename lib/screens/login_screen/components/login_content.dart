@@ -26,8 +26,13 @@ class _LoginContentState extends State<LoginContent>
     with TickerProviderStateMixin {
   late final List<Widget> createAccountContent;
   late final List<Widget> loginContent;
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
+  final myController3 = TextEditingController();
+  final myController4 = TextEditingController();
+  final myController5 = TextEditingController();
 
-  Widget inputField(String hint, IconData iconData) {
+  Widget inputField1(String hint, IconData iconData) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
       child: SizedBox(
@@ -38,6 +43,123 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
+            controller: myController1,
+            textAlignVertical: TextAlignVertical.bottom,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              hintText: hint,
+              prefixIcon: Icon(iconData),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inputField2(String hint, IconData iconData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
+      child: SizedBox(
+        height: 50,
+        child: Material(
+          elevation: 8,
+          shadowColor: Colors.black87,
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+          child: TextField(
+            controller: myController2,
+            textAlignVertical: TextAlignVertical.bottom,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              hintText: hint,
+              prefixIcon: Icon(iconData),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inputField3(String hint, IconData iconData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
+      child: SizedBox(
+        height: 50,
+        child: Material(
+          elevation: 8,
+          shadowColor: Colors.black87,
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+          child: TextField(
+            controller: myController3,
+            textAlignVertical: TextAlignVertical.bottom,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              hintText: hint,
+              prefixIcon: Icon(iconData),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inputField4(String hint, IconData iconData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
+      child: SizedBox(
+        height: 50,
+        child: Material(
+          elevation: 8,
+          shadowColor: Colors.black87,
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+          child: TextField(
+            controller: myController4,
+            textAlignVertical: TextAlignVertical.bottom,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              hintText: hint,
+              prefixIcon: Icon(iconData),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inputField5(String hint, IconData iconData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
+      child: SizedBox(
+        height: 50,
+        child: Material(
+          elevation: 8,
+          shadowColor: Colors.black87,
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+          child: TextField(
+            controller: myController5,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -59,11 +181,21 @@ class _LoginContentState extends State<LoginContent>
   {
     if(page=="Créer")
     {
-      debugPrint("1"+page);
+      if(myController1.text != "" && myController2.text != "" && myController3.text != "")
+      {
+        debugPrint(myController1.text);
+        debugPrint(myController2.text);
+        debugPrint(myController3.text);
+      }
+
     }
     if(page=="Connexion")
     {
-      debugPrint("2"+page);
+      if(myController4.text != "" && myController5.text != "")
+      {
+        debugPrint(myController4.text);
+        debugPrint(myController5.text);
+      }
     }
   }
 
@@ -96,15 +228,15 @@ class _LoginContentState extends State<LoginContent>
   @override
   void initState() {
     createAccountContent = [
-      inputField('NOM Prenom', Ionicons.person),
-      inputField('Adresse mail', Ionicons.mail_unread),
-      inputField('Mot de passe', Ionicons.lock_closed),
+      inputField1('Veuillez saisir votre nom d\'utilisateur', Ionicons.person),
+      inputField2('Veuillez saisir votre adresse mail', Ionicons.mail_unread),
+      inputField3('Veuillez saisir votre mot de passe', Ionicons.lock_closed),
       loginButton('Créer')
     ];
 
     loginContent = [
-      inputField('Adresse mail', Ionicons.mail_unread),
-      inputField('Mot de passe', Ionicons.lock_closed),
+      inputField4('Veuillez saisir votre adresse mail', Ionicons.mail_unread),
+      inputField5('Veuillez saisir votre mot de passe', Ionicons.lock_closed),
       loginButton('Connexion'),
     ];
 
@@ -134,7 +266,11 @@ class _LoginContentState extends State<LoginContent>
   @override
   void dispose() {
     ChangeScreenAnimation.dispose();
-
+    myController1.dispose();
+    myController2.dispose();
+    myController3.dispose();
+    myController4.dispose();
+    myController5.dispose();
     super.dispose();
   }
 
