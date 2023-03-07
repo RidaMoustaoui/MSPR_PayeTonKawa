@@ -228,15 +228,15 @@ class _LoginContentState extends State<LoginContent>
   @override
   void initState() {
     createAccountContent = [
-      inputField1('Veuillez saisir votre nom d\'utilisateur', Ionicons.person),
-      inputField2('Veuillez saisir votre adresse mail', Ionicons.mail_unread),
-      inputField3('Veuillez saisir votre mot de passe', Ionicons.lock_closed),
+      inputField1('Nom d\'utilisateur', Ionicons.person),
+      inputField2('Adresse mail', Ionicons.mail_unread),
+      inputField3('Mot de passe', Ionicons.lock_closed),
       loginButton('Créer')
     ];
 
     loginContent = [
-      inputField4('Veuillez saisir votre adresse mail', Ionicons.mail_unread),
-      inputField5('Veuillez saisir votre mot de passe', Ionicons.lock_closed),
+      inputField4('Adresse mail', Ionicons.mail_unread),
+      inputField5('Mot de passe', Ionicons.lock_closed),
       loginButton('Connexion'),
     ];
 
