@@ -8,6 +8,7 @@ import '../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
+import 'package:flutter/foundation.dart';
 
 enum Screens {
   createAccount,
@@ -54,11 +55,26 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
+  verifConMethod(String page)
+  {
+    if(page=="Créer")
+    {
+      debugPrint("1"+page);
+    }
+    if(page=="Connexion")
+    {
+      debugPrint("2"+page);
+    }
+  }
+
   Widget loginButton(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: ()
+        {
+          verifConMethod(title);
+        },
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: const StadiumBorder(),
@@ -71,24 +87,6 @@ class _LoginContentState extends State<LoginContent>
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-
-
-  Widget forgotPassword() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 110),
-      child: TextButton(
-        onPressed: () {},
-        child: const Text(
-          'Mot de passe oublié ?',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: kSecondaryColor,
           ),
         ),
       ),
@@ -108,7 +106,6 @@ class _LoginContentState extends State<LoginContent>
       inputField('Adresse mail', Ionicons.mail_unread),
       inputField('Mot de passe', Ionicons.lock_closed),
       loginButton('Connexion'),
-      forgotPassword(),
     ];
 
     ChangeScreenAnimation.initialize(
