@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:login_screen/screens/home_screen.dart';
 import 'package:login_screen/utils/helper_functions.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:login_screen/main.dart';
 import '../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
@@ -198,13 +196,15 @@ class _LoginContentState extends State<LoginContent>
         debugPrint(signupMail.text);
         debugPrint(signupPassword.text);
       }
-
     }
     if (page == "Connexion") {
       if (loginMail.text != "" && loginPassword.text != "") {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: loginMail.text.trim(), password: loginPassword.text.trim());
         log("Youpiiii");
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const HomeScreen();
+        }));
         debugPrint(loginMail.text);
         debugPrint(loginPassword.text);
       }
@@ -215,8 +215,7 @@ class _LoginContentState extends State<LoginContent>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
       child: ElevatedButton(
-        onPressed: ()
-        {
+        onPressed: () {
           verifConMethod(title);
         },
         style: ElevatedButton.styleFrom(
