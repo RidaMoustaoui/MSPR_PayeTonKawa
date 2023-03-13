@@ -30,18 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   void testRestAPI(String arguments) async {
-  var url = Uri.https("615f5fb4f7254d0017068109.mockapi.io", "/api/v1/products", {'q': '{https}'});
+    var url = Uri.https("615f5fb4f7254d0017068109.mockapi.io", "/api/v1/products", {'q': '{https}'});
 
-  // Await the http get response, then decode the json-formatted response.
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    // debugPrint(response.body);
-    var jsonResponse = convert.jsonDecode(response.body);
-    var productName = jsonResponse[0]['name'];
-    debugPrint(productName);
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      // debugPrint(response.body);
+      var jsonResponse = convert.jsonDecode(response.body);
+      var productName = jsonResponse[0]['name']; // IMPORTNANT : comment dynamiser le 0? // pas tres important : dynamiser le name et le reste des colonnes
+      debugPrint(productName);
+    }
+    else {
+      debugPrint('Request failed with status: ${response.statusCode}.');
+    }
   }
-  else {
-    debugPrint('Request failed with status: ${response.statusCode}.');
-  }
-}
 }
