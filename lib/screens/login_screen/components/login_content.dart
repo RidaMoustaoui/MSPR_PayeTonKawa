@@ -9,6 +9,8 @@ import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 enum Screens {
   createAccount,
@@ -181,17 +183,21 @@ class _LoginContentState extends State<LoginContent>
 
   verifConMethod(String page) async {
     if (page == "Créer") {
-      if (signupName.text != "" &&
-          signupMail.text != "" &&
-          signupPassword.text != "") {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: signupMail.text.trim(),
-            password: signupPassword.text.trim());
-        /**
-             * TODO
-             * Redirect to SignIn page
-             */
-
+      if (signupName.text != "" && signupMail.text != "" && signupPassword.text != "") {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: signupMail.text.trim(), password: signupPassword.text.trim());
+        /*
+        * TODO
+        * Redirect to SignIn page
+        */
+        Fluttertoast.showToast(
+          msg: "Votre compte a été créé.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
         debugPrint(signupName.text);
         debugPrint(signupMail.text);
         debugPrint(signupPassword.text);
@@ -199,12 +205,17 @@ class _LoginContentState extends State<LoginContent>
     }
     if (page == "Connexion") {
       if (loginMail.text != "" && loginPassword.text != "") {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: loginMail.text.trim(), password: loginPassword.text.trim());
-        log("Youpiiii");
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const HomeScreen();
-        }));
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: loginMail.text.trim(), password: loginPassword.text.trim());
+        Fluttertoast.showToast(
+          msg: "Bienvenue.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) {return const HomeScreen();}));
         debugPrint(loginMail.text);
         debugPrint(loginPassword.text);
       }
