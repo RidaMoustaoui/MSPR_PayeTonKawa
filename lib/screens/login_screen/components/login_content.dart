@@ -198,9 +198,6 @@ class _LoginContentState extends State<LoginContent>
           textColor: Colors.white,
           fontSize: 16.0
         );
-        debugPrint(signupName.text);
-        debugPrint(signupMail.text);
-        debugPrint(signupPassword.text);
       }
     }
     if (page == "Connexion") {
@@ -216,8 +213,6 @@ class _LoginContentState extends State<LoginContent>
           fontSize: 16.0
         );
         Navigator.push(context, MaterialPageRoute(builder: (context) {return const HomeScreen();}));
-        debugPrint(loginMail.text);
-        debugPrint(loginPassword.text);
       }
     }
   }
