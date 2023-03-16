@@ -30,16 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 }, 
               ),  
             ),  
-            Container(  
-              margin: const EdgeInsets.all(25),  
-              child: ElevatedButton(  
-                child: const Text('Réalité augmenté', style: TextStyle(fontSize: 20.0),),  
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const AugmentedReality();
+            ElevatedButton(  
+              child: const Text('Réalité augmenté', style: TextStyle(fontSize: 20.0),),  
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const AugmentedReality();
             }));
           }, 
-              ),  
             ),  
           ]  
          ))  
