@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ElevatedButton(  
                 child: const Text('Produits', style: TextStyle(fontSize: 20.0),),  
                 onPressed: () {        
-                Navigator.push(context, MaterialPageRoute(builder: (context) {return const produits();}));
+                Navigator.push(context, MaterialPageRoute(builder: (context) {return const Produits();}));
                 }, 
               ),  
             ),  

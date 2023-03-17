@@ -5,14 +5,14 @@ import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
-class produits extends StatefulWidget {
-  const produits({super.key});
+class Produits extends StatefulWidget {
+  const Produits({super.key});
 
   @override
-  State<produits> createState() => _ProduitsState();
+  State<Produits> createState() => _ProduitsState();
 }
 
-class _ProduitsState extends State<produits> {
+class _ProduitsState extends State<Produits> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
