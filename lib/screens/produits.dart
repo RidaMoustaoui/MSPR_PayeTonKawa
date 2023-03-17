@@ -2,36 +2,50 @@ import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
-class AugmentedReality extends StatefulWidget {
-  const AugmentedReality({super.key});
+class produits extends StatefulWidget {
+  const produits({super.key});
 
   @override
-  State<AugmentedReality> createState() => _AugmentedRealityState();
+  State<produits> createState() => _ProduitsState();
 }
 
-class _AugmentedRealityState extends State<AugmentedReality> {
+class _ProduitsState extends State<produits> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Réalité augmentée'),
+            title: const Text('Produits'),
           ),
-          body: Center(
-              child: Column(children: <Widget>[
-                ElevatedButton(
-                  child: const Text(
-                    'Test2',
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                  onPressed: () {
-                    debugPrint("bonjour2");
-                  },
-                ),
-          ]))),
+          body: const Center(
+            child: Text("test", style: TextStyle(fontSize: 20.0)),
+          )),
     );
   }
+}
+
+void testRestAPI(String arguments) async {
+  var url = Uri.https("615f5fb4f7254d0017068109.mockapi.io", "/api/v1/products",
+      {'q': '{https}'});
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    // debugPrint(response.body);
+    var jsonResponse = convert.jsonDecode(response.body);
+    for (int i = 0; i < jsonResponse.length; i++) {
+      debugPrint(jsonResponse[i]['id']);
+      debugPrint(jsonResponse[i]['name']);
+      debugPrint(jsonResponse[i]['details']['price']);
+      debugPrint(jsonResponse[i]['details']['description']);
+      debugPrint(jsonResponse[i]['details']['color']);
+      debugPrint('${jsonResponse[i]['stock']}');
+    }
+  } else {
+    debugPrint('Request failed with status: ${response.statusCode}.');
+  }
+
 }
 
 // void main() {
@@ -147,30 +161,30 @@ class _AugmentedRealityState extends State<AugmentedReality> {
 //   }
 // }
 
-class ExampleCard extends StatelessWidget {
-  ExampleCard({Key? key, required this.example}) : super(key: key);
-  final Example example;
+// class ExampleCard extends StatelessWidget {
+//   ExampleCard({Key? key, required this.example}) : super(key: key);
+//   final Example example;
 
-  @override
-  build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        splashColor: Colors.blue.withAlpha(30),
-        onTap: () {
-          example.onTap();
-        },
-        child: ListTile(
-          title: Text(example.name),
-          subtitle: Text(example.description),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   build(BuildContext context) {
+//     return Card(
+//       child: InkWell(
+//         splashColor: Colors.blue.withAlpha(30),
+//         onTap: () {
+//           example.onTap();
+//         },
+//         child: ListTile(
+//           title: Text(example.name),
+//           subtitle: Text(example.description),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class Example {
-  const Example(this.name, this.description, this.onTap);
-  final String name;
-  final String description;
-  final Function onTap;
-}
+// class Example {
+//   const Example(this.name, this.description, this.onTap);
+//   final String name;
+//   final String description;
+//   final Function onTap;
+// }

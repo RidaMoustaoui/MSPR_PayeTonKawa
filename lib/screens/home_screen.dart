@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_screen/screens/augmented_reality.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:login_screen/screens/produits.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.all(25),  
               child: ElevatedButton(  
                 child: const Text('Produits', style: TextStyle(fontSize: 20.0),),  
-                onPressed: () {
-                  testRestAPI("");
+                onPressed: () {        
+                Navigator.push(context, MaterialPageRoute(builder: (context) {return const produits();}));
                 }, 
               ),  
             ),  
@@ -40,26 +39,5 @@ class _HomeScreenState extends State<HomeScreen> {
          ))  
       ),  
     );  
-  }
-
-  void testRestAPI(String arguments) async {
-    var url = Uri.https("615f5fb4f7254d0017068109.mockapi.io",
-        "/api/v1/products", {'q': '{https}'});
-
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // debugPrint(response.body);
-      var jsonResponse = convert.jsonDecode(response.body);
-      for (int i = 0; i < jsonResponse.length; i++) {
-        debugPrint(jsonResponse[i]['id']);
-        debugPrint(jsonResponse[i]['name']);
-        debugPrint(jsonResponse[i]['details']['price']);
-        debugPrint(jsonResponse[i]['details']['description']);
-        debugPrint(jsonResponse[i]['details']['color']);
-        debugPrint('${jsonResponse[i]['stock']}');
-      }
-    } else {
-      debugPrint('Request failed with status: ${response.statusCode}.');
-    }
   }
 }
