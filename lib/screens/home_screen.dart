@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:login_screen/screens/augmented_reality.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
@@ -31,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),  
             ),  
             ElevatedButton(  
-              child: const Text('Réalité augmenté', style: TextStyle(fontSize: 20.0),),  
+              child: const Text('Réalité augmentée', style: TextStyle(fontSize: 20.0),),  
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return const AugmentedReality();

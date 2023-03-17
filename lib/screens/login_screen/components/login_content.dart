@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -10,7 +9,6 @@ import 'bottom_text.dart';
 import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 
 enum Screens {
   createAccount,
@@ -225,9 +223,8 @@ class _LoginContentState extends State<LoginContent>
           verifConMethod(title);
         },
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          padding: const EdgeInsets.symmetric(vertical: 14), backgroundColor: kSecondaryColor,
           shape: const StadiumBorder(),
-          primary: kSecondaryColor,
           elevation: 8,
           shadowColor: Colors.black87,
         ),
