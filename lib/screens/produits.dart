@@ -17,12 +17,13 @@ class _ProduitsState extends State<Produits> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Produits'),
-          ),
-          body: const Center(
-            child: Text("test", style: TextStyle(fontSize: 20.0)),
-          )),
+        appBar: AppBar(
+          title: const Text('Produits'),
+        ),
+        body: const Center(
+          child: Text("test", style: TextStyle(fontSize: 20.0)),
+        )
+      ),
     );
   }
 }
