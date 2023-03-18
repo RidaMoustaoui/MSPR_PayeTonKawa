@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class Produits extends StatefulWidget {
   const Produits({super.key});
@@ -13,179 +14,73 @@ class Produits extends StatefulWidget {
 }
 
 class _ProduitsState extends State<Produits> {
+
+  Future<List<Products>> fetchProducts() async {
+    var response = await http.get(Uri.parse("https://615f5fb4f7254d0017068109.mockapi.io/api/v1/products"));
+    if (response.statusCode == 200) {
+      final List resultat = convert.jsonDecode(response.body);
+      return resultat.map(((e)=>Products.fromJson(e))).toList();
+      // return Products.fromJson(convert.jsonDecode(response.body));
+    } else {
+      throw Exception("Failed to load data!");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Produits'),
         ),
-        body: const Center(
-          child: Text("test", style: TextStyle(fontSize: 20.0)),
-        )
-      ),
+        body: FutureBuilder<List<Products>>(
+          future: fetchProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                children: [
+                  ...snapshot.data!.map((e) => ListTile(
+                          title: Text(e.name),
+                          subtitle: Text(e.price+e.description+e.color+e.stock.toString()),
+                        ),
+                      )
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ));
+  }
+}
+
+class Products{
+  final String id;
+  final String name;
+  final String price;
+  final String description;
+  final String color;
+  final int stock;
+
+  const Products(
+    {
+      required this.id,
+      required this.name,
+      required this.price,
+      required this.description,
+      required this.color,
+      required this.stock
+    }
+  );
+
+  factory Products.fromJson(Map<String, dynamic> json){
+    return Products(
+      id:           json["id"],
+      name:         json["name"],
+      price:        json['details']["price"],
+      description:  json['details']["description"],
+      color:        json['details']["color"],
+      stock:        json['stock']
     );
   }
 }
-
-void testRestAPI(String arguments) async {
-  var url = Uri.https("615f5fb4f7254d0017068109.mockapi.io", "/api/v1/products",
-      {'q': '{https}'});
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    // debugPrint(response.body);
-    var jsonResponse = convert.jsonDecode(response.body);
-    for (int i = 0; i < jsonResponse.length; i++) {
-      debugPrint(jsonResponse[i]['id']);
-      debugPrint(jsonResponse[i]['name']);
-      debugPrint(jsonResponse[i]['details']['price']);
-      debugPrint(jsonResponse[i]['details']['description']);
-      debugPrint(jsonResponse[i]['details']['color']);
-      debugPrint('${jsonResponse[i]['stock']}');
-    }
-  } else {
-    debugPrint('Request failed with status: ${response.statusCode}.');
-  }
-
-}
-
-// void main() {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatefulWidget {
-//   @override
-//   _MyAppState createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   String _platformVersion = 'Unknown';
-//   static const String _title = 'AR Plugin Demo';
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     initPlatformState();
-//   }
-
-//   // Platform messages are asynchronous, so we initialize in an async method.
-//   Future<void> initPlatformState() async {
-//     String platformVersion;
-//     // Platform messages may fail, so we use a try/catch PlatformException.
-//     try {
-//       platformVersion = await ArFlutterPlugin.platformVersion;
-//     } on PlatformException {
-//       platformVersion = 'Failed to get platform version.';
-//     }
-
-//     // If the widget was removed from the tree while the asynchronous platform
-//     // message was in flight, we want to discard the reply rather than calling
-//     // setState to update our non-existent appearance.
-//     if (!mounted) return;
-
-//     setState(() {
-//       _platformVersion = platformVersion;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text(_title),
-//         ),
-//         body: Column(children: [
-//           Text('Running on: $_platformVersion\n'),
-//           Expanded(
-//             child: ExampleList(),
-//           ),
-//         ]),
-//       ),
-//     );
-//   }
-// }
-
-// class ExampleList extends StatelessWidget {
-//   ExampleList({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final examples = [
-//       Example(
-//           'Debug Options',
-//           'Visualize feature points, planes and world coordinate system',
-//           () => Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => DebugOptionsWidget()))),
-//       Example(
-//           'Local & Online Objects',
-//           'Place 3D objects from Flutter assets and the web into the scene',
-//           () => Navigator.push(
-//               context,
-//               MaterialPageRoute(
-//                   builder: (context) => LocalAndWebObjectsWidget()))),
-//       Example(
-//           'Anchors & Objects on Planes',
-//           'Place 3D objects on detected planes using anchors',
-//           () => Navigator.push(
-//               context,
-//               MaterialPageRoute(
-//                   builder: (context) => ObjectsOnPlanesWidget()))),
-//       Example(
-//           'Object Transformation Gestures',
-//           'Rotate and Pan Objects',
-//           () => Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => ObjectGesturesWidget()))),
-//       Example(
-//           'Screenshots',
-//           'Place 3D objects on planes and take screenshots',
-//           () => Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => ScreenshotWidget()))),
-//       Example(
-//           'Cloud Anchors',
-//           'Place and retrieve 3D objects using the Google Cloud Anchor API',
-//           () => Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => CloudAnchorWidget()))),
-//       Example(
-//           'External Model Management',
-//           'Similar to Cloud Anchors example, but uses external database to choose from available 3D models',
-//           () => Navigator.push(
-//               context,
-//               MaterialPageRoute(
-//                   builder: (context) => ExternalModelManagementWidget())))
-//     ];
-//     return ListView(
-//       children:
-//           examples.map((example) => ExampleCard(example: example)).toList(),
-//     );
-//   }
-// }
-
-// class ExampleCard extends StatelessWidget {
-//   ExampleCard({Key? key, required this.example}) : super(key: key);
-//   final Example example;
-
-//   @override
-//   build(BuildContext context) {
-//     return Card(
-//       child: InkWell(
-//         splashColor: Colors.blue.withAlpha(30),
-//         onTap: () {
-//           example.onTap();
-//         },
-//         child: ListTile(
-//           title: Text(example.name),
-//           subtitle: Text(example.description),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class Example {
-//   const Example(this.name, this.description, this.onTap);
-//   final String name;
-//   final String description;
-//   final Function onTap;
-// }
