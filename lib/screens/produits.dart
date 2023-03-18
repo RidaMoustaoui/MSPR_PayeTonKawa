@@ -40,7 +40,7 @@ class _ProduitsState extends State<Produits> {
                 children: [
                   ...snapshot.data!.map((e) => ListTile(
                           title: Text(e.name),
-                          subtitle: Text(e.price+e.description+e.color+e.stock.toString()),
+                          subtitle: Text('Prix : '+e.price+"€"+"\nDescription : "+e.description+"\nCouleur : "+e.color+"\nStock : "+e.stock.toString()),
                         ),
                       )
                 ],
