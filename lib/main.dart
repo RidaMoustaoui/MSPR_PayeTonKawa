@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Login App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: kBackgroundColor,
+        scaffoldBackgroundColor: Colors.blue.shade50,
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: kPrimaryColor,
               fontFamily: 'Montserrat',

@@ -1,7 +1,8 @@
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:login_screen/screens/home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:login_screen/screens/qr_scan_screen.dart';
 import 'package:login_screen/utils/helper_functions.dart';
 import '../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
@@ -9,6 +10,7 @@ import 'bottom_text.dart';
 import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uuid/uuid.dart';
 
 enum Screens {
   createAccount,
@@ -181,36 +183,76 @@ class _LoginContentState extends State<LoginContent>
 
   verifConMethod(String page) async {
     if (page == "Créer") {
-      if (signupName.text != "" && signupMail.text != "" && signupPassword.text != "") {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: signupMail.text.trim(), password: signupPassword.text.trim());
+      if (signupName.text != "" &&
+          signupMail.text != "" &&
+          signupPassword.text != "") {
+        var auth = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: signupMail.text.trim(),
+            password: signupPassword.text.trim());
+
+        if (auth.user != null) {
+          var doubleAuthToken = const Uuid().v4();
+          /**
+           * TODO mettre cette appel API dans une classe à part
+           */
+          String pseudo = signupName.text.trim();
+          String email = signupMail.text.trim();
+
+          FirebaseFirestore.instance.collection('user').doc(auth.user!.uid).set(
+                  ({
+                'email': '$email',
+                'nom': 'KHAN',
+                'prenom': 'Salman',
+                'pseudo': '$pseudo'
+              }));
+        }
+
         /*
         * TODO
         * Redirect to SignIn page
         */
         Fluttertoast.showToast(
-          msg: "Votre compte a été créé.",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
+            msg: "Votre compte a été créé.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
+
     if (page == "Connexion") {
       if (loginMail.text != "" && loginPassword.text != "") {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(email: loginMail.text.trim(), password: loginPassword.text.trim());
+        var doubleAuthToken;
+        var auth = await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: loginMail.text.trim(), password: loginPassword.text.trim());
+
+        if (auth.user != null) {
+          doubleAuthToken = const Uuid().v4().toString();
+          /**
+           * TODO mettre cette appel API dans une classe à part
+           */
+          FirebaseFirestore.instance
+              .collection('user')
+              .doc(auth.user!.uid)
+              .update({'auth_token': '$doubleAuthToken'});
+        }
+
         Fluttertoast.showToast(
-          msg: "Bienvenue.",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
-        Navigator.push(context, MaterialPageRoute(builder: (context) {return const HomeScreen();}));
+            msg: "Bienvenue.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return QrScanScreen(
+            doubleAuthToken: doubleAuthToken,
+          );
+        }));
       }
     }
   }
@@ -223,7 +265,8 @@ class _LoginContentState extends State<LoginContent>
           verifConMethod(title);
         },
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14), backgroundColor: kSecondaryColor,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          backgroundColor: kSecondaryColor,
           shape: const StadiumBorder(),
           elevation: 8,
           shadowColor: Colors.black87,
