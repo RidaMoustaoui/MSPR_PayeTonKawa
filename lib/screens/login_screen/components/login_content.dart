@@ -1,14 +1,14 @@
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:login_screen/screens/home_screen.dart';
 import 'package:login_screen/utils/helper_functions.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:login_screen/main.dart';
 import '../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 enum Screens {
   createAccount,
@@ -101,6 +101,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
+            obscureText: true,
             controller: signupPassword,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
@@ -159,6 +160,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           child: TextField(
+            obscureText: true,
             controller: loginPassword,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
@@ -177,24 +179,38 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
-  verifConMethod(String page)
-  {
-    if(page=="Créer")
-    {
-      if(signupName.text != "" && signupMail.text != "" && signupPassword.text != "")
-      {
-        debugPrint(signupName.text);
-        debugPrint(signupMail.text);
-        debugPrint(signupPassword.text);
+  verifConMethod(String page) async {
+    if (page == "Créer") {
+      if (signupName.text != "" && signupMail.text != "" && signupPassword.text != "") {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: signupMail.text.trim(), password: signupPassword.text.trim());
+        /*
+        * TODO
+        * Redirect to SignIn page
+        */
+        Fluttertoast.showToast(
+          msg: "Votre compte a été créé.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
       }
-
     }
-    if(page=="Connexion")
-    {
-      if(loginMail.text != "" && loginPassword.text != "")
-      {
-        debugPrint(loginMail.text);
-        debugPrint(loginPassword.text);
+    if (page == "Connexion") {
+      if (loginMail.text != "" && loginPassword.text != "") {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: loginMail.text.trim(), password: loginPassword.text.trim());
+        Fluttertoast.showToast(
+          msg: "Bienvenue.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) {return const HomeScreen();}));
       }
     }
   }
@@ -203,14 +219,12 @@ class _LoginContentState extends State<LoginContent>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
       child: ElevatedButton(
-        onPressed: ()
-        {
+        onPressed: () {
           verifConMethod(title);
         },
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          padding: const EdgeInsets.symmetric(vertical: 14), backgroundColor: kSecondaryColor,
           shape: const StadiumBorder(),
-          primary: kSecondaryColor,
           elevation: 8,
           shadowColor: Colors.black87,
         ),
