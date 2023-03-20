@@ -22,7 +22,7 @@ class _ProduitDetailState extends State<ProduitDetail> {
         color: Colors.grey.shade50,
         elevation: 3,
         child: ListTile(
-          title: Text("\nDescription : \n\n"+widget.produit.description+"\n"),
+          title: Text("\nNom : \n\t"+widget.produit.name+"\n\n"+"Description : \n\t"+widget.produit.description+"\n"+"\nPrix : \n\t"+widget.produit.price+" Euros\n"+"\nCouleur : \n\t"+widget.produit.color+"\n"+"\nStock : \n\t"+widget.produit.stock.toString()+"\n")
         ))
     );
   }
