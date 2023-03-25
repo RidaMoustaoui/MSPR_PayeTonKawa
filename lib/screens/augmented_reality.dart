@@ -13,26 +13,25 @@ class AugmentedReality extends StatefulWidget {
 
 class _AugmentedRealityState extends State<AugmentedReality> {
   late ArCoreController arCoreController;
-  _onArCoreViewCreated(ArCoreController _arcoreController){
+  _onArCoreViewCreated(ArCoreController _arcoreController) {
     arCoreController = _arcoreController;
-    _addSphere(arCoreController);
+    // _addSphere(arCoreController);
+    _addToon(arCoreController);
   }
 
-  _addSphere(ArCoreController _arcoreController){
-    final material = ArCoreMaterial(color: Colors.deepOrange);
-    final sphere = ArCoreSphere(materials: [material],radius: 0.2);
-    final node = ArCoreNode(
-      shape: sphere,
-      position: vector.Vector3(
-        0,0,-1,
-      ),
-      );
-      _arcoreController.addArCoreNode(node);
+  _addToon(ArCoreController _arcoreController) {
+    final node = ArCoreReferenceNode(
+      name: 'Toon',
+      object3DFileName: 'Toon.sfb',
+      scale: vector.Vector3(0.5,0.5,0.5),
+      position: vector.Vector3(0, 0, -1),
+       rotation: vector.Vector4(0,180,0,0),
+    );
+    _arcoreController.addArCoreNode(node);
   }
 
   @override
-  void dispose()
-  {
+  void dispose() {
     arCoreController.dispose();
     super.dispose();
   }
@@ -43,7 +42,9 @@ class _AugmentedRealityState extends State<AugmentedReality> {
       appBar: AppBar(
         title: const Text('Réalité augmentée'),
       ),
-      body: ArCoreView(onArCoreViewCreated: _onArCoreViewCreated,),
+      body: ArCoreView(
+        onArCoreViewCreated: _onArCoreViewCreated,
+      ),
     );
   }
 }
