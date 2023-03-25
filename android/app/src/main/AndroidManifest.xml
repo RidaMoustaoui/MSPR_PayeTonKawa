@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.login_screen">
+    <uses-sdk android:minSdkVersion="24"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
    <application
         android:label="login_screen"
         android:name="${applicationName}"

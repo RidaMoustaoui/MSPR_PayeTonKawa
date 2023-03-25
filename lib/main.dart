@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'screens/login_screen/login_screen.dart';
 import 'utils/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Login App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: kBackgroundColor,
+        scaffoldBackgroundColor: Colors.blue.shade50,
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: kPrimaryColor,
               fontFamily: 'Montserrat',

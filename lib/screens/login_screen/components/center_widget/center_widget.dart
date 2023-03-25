@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
 import 'center_widget_clipper.dart';
 import 'center_widget_painter.dart';
 
