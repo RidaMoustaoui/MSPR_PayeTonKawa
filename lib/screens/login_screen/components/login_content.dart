@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +10,9 @@ import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
+// import 'package:qr_flutter/qr_flutter.dart';
+// import 'package:http/http.dart';
+// import 'package:emailjs/emailjs.dart';
 
 enum Screens {
   createAccount,
@@ -33,6 +35,11 @@ class _LoginContentState extends State<LoginContent>
   final signupPassword = TextEditingController();
   final loginMail = TextEditingController();
   final loginPassword = TextEditingController();
+
+  // final qrKey = GlobalKey(debugLabel: 'QR_code');
+  // final serverID = '';
+  // final templateID = '';
+  // final userID = '';
 
   Widget inputField1(String hint, IconData iconData) {
     return Padding(
@@ -181,6 +188,20 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
+  // Widget createQRCode(String data) {
+  //   return QrImage(
+  //     data: data,
+  //     size: 200,
+  //     backgroundColor: Colors.white,
+  //   );
+  // }
+
+  // void sendMail() {
+  //   //EmailJS.send(serviceID, templateID);
+  //   final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+  //   //POST https://api.emailjs.com/api/v1.0/email/send
+  // }
+
   verifConMethod(String page) async {
     if (page == "Créer") {
       if (signupName.text != "" &&
@@ -224,7 +245,7 @@ class _LoginContentState extends State<LoginContent>
 
     if (page == "Connexion") {
       if (loginMail.text != "" && loginPassword.text != "") {
-        var doubleAuthToken;
+        String doubleAuthToken = '';
         var auth = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: loginMail.text.trim(), password: loginPassword.text.trim());
 
@@ -238,6 +259,8 @@ class _LoginContentState extends State<LoginContent>
               .doc(auth.user!.uid)
               .update({'auth_token': '$doubleAuthToken'});
         }
+
+        //print(createQRCode(doubleAuthToken));
 
         Fluttertoast.showToast(
             msg: "Bienvenue.",
