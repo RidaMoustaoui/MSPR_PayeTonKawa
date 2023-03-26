@@ -71,14 +71,15 @@ dependencies {
     implementation 'com.google.ar:core:1.8.0'
     implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.8.0'
     implementation 'com.google.ar.sceneform:core:1.8.0'
+    implementation 'com.google.ar.sceneform:assets:1.15.0'
     
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 apply plugin : 'com.google.ar.sceneform.plugin'
-sceneform.asset(
-    'sampledata/Toon_Gator_Complete.obj',
-    'default',
-    'sampledata/Toon_Gator_Complete.sfa',
-    'src/main/assets/Toon'
-)
+// sceneform.asset(
+//     'sampledata/Toon_Gator_Complete.obj',
+//     'default',
+//     'sampledata/Toon_Gator_Complete.sfa',
+//     'src/main/assets/Toon'
+// )

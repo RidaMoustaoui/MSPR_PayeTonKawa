@@ -15,17 +15,17 @@ class _AugmentedRealityState extends State<AugmentedReality> {
   late ArCoreController arCoreController;
   _onArCoreViewCreated(ArCoreController _arcoreController) {
     arCoreController = _arcoreController;
-    // _addSphere(arCoreController);
     _addToon(arCoreController);
   }
 
   _addToon(ArCoreController _arcoreController) {
     final node = ArCoreReferenceNode(
       name: 'Toon',
-      object3DFileName: 'Toon.sfb',
+      //object3DFileName: 'Toon.sfb',
+      objectUrl: 'coffee.glb',
       scale: vector.Vector3(0.5,0.5,0.5),
-      position: vector.Vector3(0, 0, -1),
-       rotation: vector.Vector4(0,180,0,0),
+      position: vector.Vector3(0, -2, -3),
+      rotation: vector.Vector4(0,0,0,0),
     );
     _arcoreController.addArCoreNode(node);
   }
@@ -47,4 +47,5 @@ class _AugmentedRealityState extends State<AugmentedReality> {
       ),
     );
   }
+  
 }
