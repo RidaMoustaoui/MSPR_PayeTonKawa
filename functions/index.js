@@ -4,6 +4,6 @@ const functions = require("firebase-functions");
 // https://firebase.google.com/docs/functions/get-started
 
 exports.sendEmail = functions.auth.user().beforeSignIn((user) => {
-  functions.logger.info(user.user + "triggered mail send", {structuredData: true});
+  functions.logger.info(user.email + " triggered mail send ", {structuredData: true});
   response.send("Email sent");
 });
