@@ -129,6 +129,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.6"
+  emailjs:
+    dependency: "direct main"
+    description:
+      name: emailjs
+      sha256: f191abdd50f1b706100a4309c0f7f60b0004c01b8ab1496440ac30f8627ccd95
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   encrypt:
     dependency: "direct main"
     description:
@@ -206,6 +214,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_email_sender:
+    dependency: "direct main"
+    description:
+      name: flutter_email_sender
+      sha256: "9e253c69617f43d4cb5de672e93a7a19c12a21fb6a75e66c6ce7626336c4c1bc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -328,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.2"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      sha256: "5c4208b4dc0d55c3184d10d83ee0ded6212dc2b5e2ba17c5a0c0aab279128d21"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   qr_code_scanner:
     dependency: "direct main"
     description:
@@ -336,6 +360,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      sha256: c5c121c54cb6dd837b9b9d57eb7bc7ec6df4aee741032060c8833a678c80b87e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -438,5 +470,5 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.18.2 <3.0.0"
   flutter: ">=3.3.0"

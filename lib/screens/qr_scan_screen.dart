@@ -8,6 +8,7 @@ import 'package:login_screen/screens/home_screen.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class QrScanScreen extends StatefulWidget {
   String doubleAuthToken;
@@ -21,6 +22,16 @@ class _QrScanScreenState extends State<QrScanScreen> {
   final qrKey = GlobalKey(debugLabel: 'QR_code');
   QRViewController? controller;
   Barcode? qrCode;
+
+  sendEmail(String subject, String body,String recipientemail) async{
+    final Email email= Email(
+    body : body,
+    subject: subject,
+    recipients: [recipientemail],
+    
+    isHTML: false,);
+    await FlutterEmailSender.send(email);
+  }
 
   void onQRViewCreated(QRViewController controller) {
     setState(() {
