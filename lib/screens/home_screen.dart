@@ -13,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {  
     return MaterialApp(  
+      debugShowCheckedModeBanner: false,
       home: Scaffold(  
           appBar: AppBar(  
             title: const Text('Page d\'accueil'),  

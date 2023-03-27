@@ -24,15 +24,15 @@ class _QrScanScreenState extends State<QrScanScreen> {
   QRViewController? controller;
   Barcode? qrCode;
 
-  sendEmail(String subject, String body,String recipientemail) async{
-    final Email email= Email(
-    body : body,
-    subject: subject,
-    recipients: [recipientemail],
+  // sendEmail(String subject, String body,String recipientemail) async{
+  //   final Email email= Email(
+  //   body : body,
+  //   subject: subject,
+  //   recipients: [recipientemail],
     
-    isHTML: false,);
-    await FlutterEmailSender.send(email);
-  }  
+  //   isHTML: false,);
+  //   await FlutterEmailSender.send(email);
+  // }  
 
   void onQRViewCreated(QRViewController controller) {
     setState(() {
@@ -63,7 +63,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
             return const HomeScreen();
           }));
         } else {
-          log("message");
+          //log("message");
         }
       },
     );
@@ -88,13 +88,13 @@ class _QrScanScreenState extends State<QrScanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       body: QRView(
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(borderColor: Colors.blue.shade50),
       ),
-    );
+     );
   }
 
   @override

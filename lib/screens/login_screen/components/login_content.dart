@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_screen/screens/qr_scan_screen.dart';
@@ -12,8 +14,8 @@ import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 // import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:http/http.dart';
 // import 'package:emailjs/emailjs.dart';
@@ -193,10 +195,13 @@ class _LoginContentState extends State<LoginContent>
   }
 
   Widget createQRCode(String data) {
-    return QrImage(
-      data: data,
-      size: 200,
-      backgroundColor: Colors.white,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 270),
+      child: QrImage(
+        data: data,
+        size: 100,
+        backgroundColor: Colors.white,
+      ),
     );
   }
 
@@ -279,7 +284,6 @@ class _LoginContentState extends State<LoginContent>
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return createQRCode(doubleAuthToken);
         }));
-        
       }
     }
   }
