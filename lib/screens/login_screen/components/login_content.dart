@@ -222,8 +222,6 @@ class _LoginContentState extends State<LoginContent>
           FirebaseFirestore.instance.collection('user').doc(auth.user!.uid).set(
                   ({
                 'email': '$email',
-                'nom': 'KHAN',
-                'prenom': 'Salman',
                 'pseudo': '$pseudo'
               }));
         }
@@ -263,7 +261,7 @@ class _LoginContentState extends State<LoginContent>
         //print(createQRCode(doubleAuthToken));
 
         Fluttertoast.showToast(
-            msg: "Bienvenue.",
+            msg: "Bienvenue",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,

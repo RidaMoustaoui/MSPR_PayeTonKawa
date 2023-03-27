@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
@@ -20,8 +18,7 @@ class _AugmentedRealityState extends State<AugmentedReality> {
 
   _addToon(ArCoreController _arcoreController) {
     final node = ArCoreReferenceNode(
-      name: 'Toon',
-      //object3DFileName: 'Toon.sfb',
+      name: 'CoffeeCup',
       objectUrl: 'coffee.glb',
       scale: vector.Vector3(0.5,0.5,0.5),
       position: vector.Vector3(0, -2, -3),
