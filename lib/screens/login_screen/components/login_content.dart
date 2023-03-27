@@ -285,7 +285,7 @@ class _LoginContentState extends State<LoginContent>
 
           final message = Message()
             ..from = Address(username)
-            ..recipients.add(username)
+            ..recipients.add(loginMail.text)
             ..subject = 'Flutter Send Mail'
             ..html = "<h3>Thanks for connecting with us!</h3>\n<p></p>";
           try {
