@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_screen/screens/home_screen.dart';
 import 'package:login_screen/screens/login_screen/components/login_content.dart';
+import 'package:login_screen/screens/produits.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -60,7 +61,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
          * Redirige vers la page de connexion
          */
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const HomeScreen();
+            return const Produits();
           }));
         } else {
           //log("message");

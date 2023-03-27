@@ -200,7 +200,7 @@ class _LoginContentState extends State<LoginContent>
 
   Widget createQRCode(String data) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 270),
+      padding: const EdgeInsets.symmetric(vertical: 268),
       child: QrImage(
         data: data,
         size: 100,
