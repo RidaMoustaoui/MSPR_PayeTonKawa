@@ -18,6 +18,8 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:backendless_sdk/backendless_sdk.dart';
+
 // import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:http/http.dart';
 // import 'package:emailjs/emailjs.dart';
@@ -197,10 +199,13 @@ class _LoginContentState extends State<LoginContent>
   }
 
   Widget createQRCode(String data) {
-    return QrImage(
-      data: data,
-      size: 100,
-      backgroundColor: Colors.white,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 270),
+      child: QrImage(
+        data: data,
+        size: 100,
+        backgroundColor: Colors.white,
+      ),
     );
   }
 
@@ -293,11 +298,11 @@ class _LoginContentState extends State<LoginContent>
           }
         }
 
-        // Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //   return QrScanScreen(
-        //     doubleAuthToken: doubleAuthToken,
-        //   );
-        // }));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return QrScanScreen(
+            doubleAuthToken: doubleAuthToken,
+          );
+        }));
         await sendMail();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return createQRCode(doubleAuthToken);

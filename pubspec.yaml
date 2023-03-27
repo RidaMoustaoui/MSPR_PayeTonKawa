@@ -55,6 +55,7 @@ dependencies:
   image_gallery_saver: ^1.7.1
   mailer: 
   mailer2: ^1.2.5
+  backendless_sdk: ^7.3.1
 
 dev_dependencies:
   flutter_test:
