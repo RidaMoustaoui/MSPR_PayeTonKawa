@@ -22,8 +22,9 @@ class _ProduitDetailState extends State<ProduitDetail> {
           color: Colors.grey.shade50,
           elevation: 3,
           child: ListTile(
-              title: Text(
-                  "\nNom : \n\t${widget.produit.name}\n\nDescription : \n\t${widget.produit.description}\n\nPrix : \n\t${widget.produit.price} Euros\n\nCouleur : \n\t${widget.produit.color}\n\nStock : \n\t${widget.produit.stock}\n"))
+            title: Text(
+              "\nNom : \n\t${widget.produit.name}\n\nDescription : \n\t${widget.produit.description}\n\nPrix : \n\t${widget.produit.price} Euros\n\nCouleur : \n\t${widget.produit.color}\n\nStock : \n\t${widget.produit.stock}\n")
+              )
         ),
         floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -33,6 +34,6 @@ class _ProduitDetailState extends State<ProduitDetail> {
         },
         child: const Icon(Icons.adb_rounded),
       ),
-      );
+    );
   }
 }
