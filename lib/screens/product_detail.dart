@@ -34,6 +34,7 @@ class _ProduitDetailState extends State<ProduitDetail> {
         },
         child: const Icon(Icons.adb_rounded),
       ),
+        
     );
   }
 }
