@@ -16,6 +16,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 // import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:http/http.dart';
 // import 'package:emailjs/emailjs.dart';
@@ -195,13 +197,10 @@ class _LoginContentState extends State<LoginContent>
   }
 
   Widget createQRCode(String data) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 270),
-      child: QrImage(
-        data: data,
-        size: 100,
-        backgroundColor: Colors.white,
-      ),
+    return QrImage(
+      data: data,
+      size: 100,
+      backgroundColor: Colors.white,
     );
   }
 
@@ -271,16 +270,35 @@ class _LoginContentState extends State<LoginContent>
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return QrScanScreen(
-            doubleAuthToken: doubleAuthToken,
-          );
-        }));
+        sendMail() async {
+          String username = 'sskman8855@gmail.com';
+          String password = 'Salman95';
+          final smtpServer = gmail(username, password);
 
+          final message = Message()
+            ..from = Address(username)
+            ..recipients.add(username)
+            ..subject = 'Flutter Send Mail'
+            ..html = "<h3>Thanks for connecting with us!</h3>\n<p></p>";
+          try {
+            final sendReport = await send(message, smtpServer);
+            debugPrint('Message sent:$sendReport');
+          } on MailerException catch (e) {
+            debugPrint("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+            debugPrint(e.toString());
+            debugPrint("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+          }
+        }
+
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return QrScanScreen(
+        //     doubleAuthToken: doubleAuthToken,
+        //   );
+        // }));
+        await sendMail();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return createQRCode(doubleAuthToken);
         }));
@@ -398,4 +416,10 @@ class _LoginContentState extends State<LoginContent>
       ],
     );
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }
