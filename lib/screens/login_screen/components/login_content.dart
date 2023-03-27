@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_screen/screens/qr_scan_screen.dart';
 import 'package:login_screen/utils/helper_functions.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../../../utils/constants.dart';
 import '../animations/change_screen_animation.dart';
 import 'bottom_text.dart';
@@ -10,6 +12,8 @@ import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 // import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:http/http.dart';
 // import 'package:emailjs/emailjs.dart';
@@ -188,13 +192,13 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
-  // Widget createQRCode(String data) {
-  //   return QrImage(
-  //     data: data,
-  //     size: 200,
-  //     backgroundColor: Colors.white,
-  //   );
-  // }
+  Widget createQRCode(String data) {
+    return QrImage(
+      data: data,
+      size: 200,
+      backgroundColor: Colors.white,
+    );
+  }
 
   // void sendMail() {
   //   //EmailJS.send(serviceID, templateID);
@@ -219,11 +223,10 @@ class _LoginContentState extends State<LoginContent>
           String pseudo = signupName.text.trim();
           String email = signupMail.text.trim();
 
-          FirebaseFirestore.instance.collection('user').doc(auth.user!.uid).set(
-                  ({
-                'email': '$email',
-                'pseudo': '$pseudo'
-              }));
+          FirebaseFirestore.instance
+              .collection('user')
+              .doc(auth.user!.uid)
+              .set(({'email': '$email', 'pseudo': '$pseudo'}));
         }
 
         /*
@@ -258,8 +261,6 @@ class _LoginContentState extends State<LoginContent>
               .update({'auth_token': '$doubleAuthToken'});
         }
 
-        //print(createQRCode(doubleAuthToken));
-
         Fluttertoast.showToast(
             msg: "Bienvenue",
             toastLength: Toast.LENGTH_SHORT,
@@ -274,6 +275,11 @@ class _LoginContentState extends State<LoginContent>
             doubleAuthToken: doubleAuthToken,
           );
         }));
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return createQRCode(doubleAuthToken);
+        }));
+        
       }
     }
   }

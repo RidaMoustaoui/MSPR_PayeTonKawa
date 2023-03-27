@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_screen/screens/home_screen.dart';
+import 'package:login_screen/screens/login_screen/components/login_content.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,7 +32,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
     
     isHTML: false,);
     await FlutterEmailSender.send(email);
-  }
+  }  
 
   void onQRViewCreated(QRViewController controller) {
     setState(() {
@@ -70,9 +71,9 @@ class _QrScanScreenState extends State<QrScanScreen> {
          * TODO
          * Retirer la redirection
          */
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const HomeScreen();
-    }));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //   return const HomeScreen();
+    // }));
   }
 
   @override
@@ -89,7 +90,6 @@ class _QrScanScreenState extends State<QrScanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: QRView(
-        //buildQrView(widget)
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(borderColor: Colors.blue.shade50),
