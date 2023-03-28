@@ -271,16 +271,14 @@ class _LoginContentState extends State<LoginContent>
           final template_id = 'template_pjscaig';
           final user_id = 'Htfq9UO7Op5pbLyrk';
           final mail = loginMail.text;
+          message = "https://quickchart.io/qr?text=$message";
           final Response response = await http.post(url,
               headers: {'Content-Type': 'application/json'},
               body: json.encode({
                 'service_id': service_id,
                 'template_id': template_id,
                 'user_id': user_id,
-                'template_params': {
-                  'message': message,
-                  'mail': mail
-                },
+                'template_params': {'message': message, 'mail': mail},
                 'accessToken': "ADSvmauZ6c2bsAgfKouNb"
               }));
           debugPrint(
