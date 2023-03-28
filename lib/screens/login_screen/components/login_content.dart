@@ -18,7 +18,6 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
-import 'package:backendless_sdk/backendless_sdk.dart';
 
 // import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:http/http.dart';
@@ -270,14 +269,6 @@ class _LoginContentState extends State<LoginContent>
               .update({'auth_token': '$doubleAuthToken'});
         }
 
-        Fluttertoast.showToast(
-            msg: "Bienvenue",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0);
-
         sendMail() async {
           String username = 'sskman8855@gmail.com';
           String password = 'Salman95';
@@ -307,6 +298,14 @@ class _LoginContentState extends State<LoginContent>
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return createQRCode(doubleAuthToken);
         }));
+      }else{
+        Fluttertoast.showToast(
+            msg: "Veuillez saisir un mail et un mot de passe.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_screen/screens/home_screen.dart';
 import 'package:login_screen/screens/login_screen/components/login_content.dart';
 import 'package:login_screen/screens/produits.dart';
@@ -60,11 +61,27 @@ class _QrScanScreenState extends State<QrScanScreen> {
           /**
          * Redirige vers la page de connexion
          */
+          
+          Fluttertoast.showToast(
+            msg: "Bienvenue.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0);
+
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const Produits();
           }));
         } else {
-          //log("message");
+          
+          Fluttertoast.showToast(
+            msg: "Bienvenue.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0);
         }
       },
     );
