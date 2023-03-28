@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/foundation.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:http/http.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_screen/screens/qr_scan_screen.dart';
@@ -14,10 +12,8 @@ import 'top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:ui' as ui;
-import 'dart:typed_data';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 // import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:http/http.dart';
@@ -269,36 +265,41 @@ class _LoginContentState extends State<LoginContent>
               .update({'auth_token': '$doubleAuthToken'});
         }
 
-        sendMail() async {
-          String username = 'sskman8855@gmail.com';
-          String password = 'Salman95';
-          final smtpServer = gmail(username, password);
-
-          final message = Message()
-            ..from = Address(username)
-            ..recipients.add(loginMail.text)
-            ..subject = 'Flutter Send Mail'
-            ..html = "<h3>Thanks for connecting with us!</h3>\n<p></p>";
-          try {
-            final sendReport = await send(message, smtpServer);
-            debugPrint('Message sent:$sendReport');
-          } on MailerException catch (e) {
-            debugPrint("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-            debugPrint(e.toString());
-            debugPrint("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-          }
+        Future MailFeedback(String message) async {
+          final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+          final service_id = 'service_pvvvnzm';
+          final template_id = 'template_pjscaig';
+          final user_id = 'Htfq9UO7Op5pbLyrk';
+          final mail = loginMail.text;
+          final Response response = await http.post(url,
+              headers: {'Content-Type': 'application/json'},
+              body: json.encode({
+                'service_id': service_id,
+                'template_id': template_id,
+                'user_id': user_id,
+                'template_params': {
+                  'message': message,
+                  'mail': mail
+                },
+                'accessToken': "ADSvmauZ6c2bsAgfKouNb"
+              }));
+          debugPrint(
+              "Response --- ${response.body}   --- ${response.statusCode}");
+          return response.statusCode;
         }
+
+        await MailFeedback(doubleAuthToken);
 
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return QrScanScreen(
             doubleAuthToken: doubleAuthToken,
           );
         }));
-        await sendMail();
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return createQRCode(doubleAuthToken);
-        }));
-      }else{
+
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return createQRCode(doubleAuthToken);
+        // }));
+      } else {
         Fluttertoast.showToast(
             msg: "Veuillez saisir un mail et un mot de passe.",
             toastLength: Toast.LENGTH_SHORT,
